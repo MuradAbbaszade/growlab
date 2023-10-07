@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+group 'az.growlab'
+version '1.0'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.1.1'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.16'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: '2.7.16'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.7.16'
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.16'
+}
