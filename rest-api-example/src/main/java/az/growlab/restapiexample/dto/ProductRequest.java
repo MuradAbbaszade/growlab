@@ -1,4 +1,4 @@
-package az.growlab.restapiexample.controller.dto;
+package az.growlab.restapiexample.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +10,9 @@ import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Getter
-@Setter
 @NoArgsConstructor
-public class ProductUpdateRequestDto {
-    private Long id;
+@Setter
+public class ProductRequest {
     @NotBlank(message = "Name can't be blank")
     private String name;
     @Min(value = 10, message = "Price can't be lower than 10")

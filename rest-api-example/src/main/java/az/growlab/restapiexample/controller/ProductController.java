@@ -1,15 +1,12 @@
 package az.growlab.restapiexample.controller;
 
-import az.growlab.restapiexample.controller.dto.ProductRequestDto;
-import az.growlab.restapiexample.controller.dto.ProductResponseDto;
-import az.growlab.restapiexample.controller.dto.ProductUpdateRequestDto;
-import az.growlab.restapiexample.model.Product;
-import io.swagger.models.auth.In;
+import az.growlab.restapiexample.dto.ProductRequest;
+import az.growlab.restapiexample.dto.ProductResponse;
+import az.growlab.restapiexample.domain.Product;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,10 +27,10 @@ public class ProductController {
     Map<Long, Product> products = new HashMap<>();
 
     @GetMapping("/{id}")
-    public ProductResponseDto getProduct(@PathVariable Long id) throws NotFoundException {
+    public ProductResponse getProduct(@PathVariable Long id) throws NotFoundException {
         if (!products.containsKey(id)) throw new NotFoundException("Product not found.");
         Product product = products.get(id);
-        return modelMapper.map(product, ProductResponseDto.class);
+        return modelMapper.map(product, ProductResponse.class);
     }
 
     @GetMapping("/products")
@@ -43,22 +40,22 @@ public class ProductController {
 
     @PostMapping("/add-product")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ProductResponseDto addProduct(@Valid @RequestBody ProductRequestDto productRequestDto) {
+    public ProductResponse addProduct(@Valid @RequestBody ProductRequest productRequestDto) {
         Product product = modelMapper.map(productRequestDto, Product.class);
         product.setCreatedAt(LocalDateTime.now());
         product.setUpdatedAt(null);
         product.setId(Product.idCounter++);
         products.put(product.getId(), product);
         log.info("Product added. ID:{}", product.getId());
-        return modelMapper.map(product, ProductResponseDto.class);
+        return modelMapper.map(product, ProductResponse.class);
     }
 
     @PutMapping("/update-product")
-    public ProductResponseDto updateProduct(@Valid @RequestBody ProductUpdateRequestDto productUpdateRequestDto) throws NotFoundException {
-        if (!products.containsKey(productUpdateRequestDto.getId())) throw new NotFoundException("Product not found.");
-        Product product = update(productUpdateRequestDto);
+    public ProductResponse updateProduct(@RequestParam("id") Long id , @Valid @RequestBody ProductRequest productRequest) throws NotFoundException {
+        if (!products.containsKey(id)) throw new NotFoundException("Product not found.");
+        Product product = update(id,productRequest);
         log.info("Product updated. ID:{}", product.getId());
-        return modelMapper.map(product, ProductResponseDto.class);
+        return modelMapper.map(product, ProductResponse.class);
     }
 
     @DeleteMapping("/delete-product/{id}")
@@ -79,10 +76,10 @@ public class ProductController {
         return productList;
     }
 
-    Product update(ProductUpdateRequestDto productUpdateRequestDto) {
-        Product product = products.get(productUpdateRequestDto.getId());
-        product.setName(productUpdateRequestDto.getName());
-        product.setPrice(productUpdateRequestDto.getPrice());
+    Product update(Long id,ProductRequest productRequest) {
+        Product product = products.get(id);
+        product.setName(productRequest.getName());
+        product.setPrice(productRequest.getPrice());
         product.setUpdatedAt(LocalDateTime.now());
         return product;
     }

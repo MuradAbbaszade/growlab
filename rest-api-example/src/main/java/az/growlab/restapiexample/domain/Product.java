@@ -1,4 +1,4 @@
-package az.growlab.restapiexample.model;
+package az.growlab.restapiexample.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
