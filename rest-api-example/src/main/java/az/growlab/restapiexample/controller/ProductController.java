@@ -3,6 +3,7 @@ package az.growlab.restapiexample.controller;
 import az.growlab.restapiexample.dto.ProductRequest;
 import az.growlab.restapiexample.dto.ProductResponse;
 import az.growlab.restapiexample.domain.Product;
+import az.growlab.restapiexample.service.ProductService;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,64 +24,37 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final ModelMapper modelMapper;
-    Map<Long, Product> products = new HashMap<>();
+    private final ProductService productService;
 
     @GetMapping("/{id}")
     public ProductResponse getProduct(@PathVariable Long id) throws NotFoundException {
-        if (!products.containsKey(id)) throw new NotFoundException("Product not found.");
-        Product product = products.get(id);
-        return modelMapper.map(product, ProductResponse.class);
+        return productService.findById(id);
     }
 
     @GetMapping("/products")
     public List<Product> getProducts() {
-        return toList(products);
+        return productService.findAll();
     }
 
     @PostMapping("/add-product")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ProductResponse addProduct(@Valid @RequestBody ProductRequest productRequestDto) {
-        Product product = modelMapper.map(productRequestDto, Product.class);
-        product.setCreatedAt(LocalDateTime.now());
-        product.setUpdatedAt(null);
-        product.setId(Product.idCounter++);
-        products.put(product.getId(), product);
+    public Product addProduct(@Valid @RequestBody ProductRequest productRequest) {
+        Product product = productService.addProduct(productRequest);
         log.info("Product added. ID:{}", product.getId());
-        return modelMapper.map(product, ProductResponse.class);
+        return product;
     }
 
     @PutMapping("/update-product")
-    public ProductResponse updateProduct(@RequestParam("id") Long id , @Valid @RequestBody ProductRequest productRequest) throws NotFoundException {
-        if (!products.containsKey(id)) throw new NotFoundException("Product not found.");
-        Product product = update(id,productRequest);
-        log.info("Product updated. ID:{}", product.getId());
-        return modelMapper.map(product, ProductResponse.class);
+    public Product updateProduct(@RequestParam("id") Long id, @Valid @RequestBody ProductRequest productRequest) throws NotFoundException {
+        Product product = productService.updateProduct(id, productRequest);
+        log.info("Product updated. ID:{}", id);
+        return product;
     }
 
     @DeleteMapping("/delete-product/{id}")
     public void deleteProduct(@PathVariable Long id) throws NotFoundException {
-        if (!products.containsKey(id)) throw new NotFoundException("Product not found.");
-        products.remove(id);
+        productService.deleteById(id);
         log.info("Product deleted. ID:{}", id);
     }
 
-    List<Product> toList(Map<Long, Product> productHashMap) {
-        List<Product> productList = new ArrayList<>();
-        for (Map.Entry<Long, Product> entry : productHashMap.entrySet()) {
-            Long key = entry.getKey();
-            Product product = entry.getValue();
-            product.setId(key);
-            productList.add(product);
-        }
-        return productList;
-    }
-
-    Product update(Long id,ProductRequest productRequest) {
-        Product product = products.get(id);
-        product.setName(productRequest.getName());
-        product.setPrice(productRequest.getPrice());
-        product.setUpdatedAt(LocalDateTime.now());
-        return product;
-    }
 }
