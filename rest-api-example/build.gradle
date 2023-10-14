@@ -21,4 +21,6 @@ dependencies {
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.16'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.7.16'
+    implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.1.0'
 }

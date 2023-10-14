@@ -38,17 +38,15 @@ public class ProductController {
 
     @PostMapping("/add-product")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Product addProduct(@Valid @RequestBody ProductRequest productRequest) {
+    public void addProduct(@Valid @RequestBody ProductRequest productRequest) {
         Product product = productService.addProduct(productRequest);
         log.info("Product added. ID:{}", product.getId());
-        return product;
     }
 
     @PutMapping("/update-product")
-    public Product updateProduct(@RequestParam("id") Long id, @Valid @RequestBody ProductRequest productRequest) throws NotFoundException {
+    public void updateProduct(@RequestParam("id") Long id, @Valid @RequestBody ProductRequest productRequest) throws NotFoundException {
         Product product = productService.updateProduct(id, productRequest);
         log.info("Product updated. ID:{}", id);
-        return product;
     }
 
     @DeleteMapping("/delete-product/{id}")

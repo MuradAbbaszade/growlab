@@ -16,6 +16,4 @@ public class Product {
     private BigDecimal price;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-    public static Long idCounter=0L;
 }

@@ -22,7 +22,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse findById(Long id) throws NotFoundException {
-        Product product = productRepository.findById(id);
+        Product product = productRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("Product not found"));
         return modelMapper.map(product, ProductResponse.class);
     }
 
@@ -41,17 +42,18 @@ public class ProductServiceImpl implements ProductService {
         Product product = modelMapper.map(productRequest, Product.class);
         product.setCreatedAt(LocalDateTime.now());
         product.setUpdatedAt(null);
-        product.setId(Product.idCounter++);
         productRepository.save(product);
         return product;
     }
 
     @Override
     public Product updateProduct(Long id, ProductRequest productRequest) throws NotFoundException {
-        Product product = productRepository.findById(id);
+        Product product = productRepository.findById(id)
+                .orElseThrow(()->new NotFoundException("Product not found"));
         product.setName(productRequest.getName());
         product.setPrice(productRequest.getPrice());
         product.setUpdatedAt(LocalDateTime.now());
+        productRepository.update(product);
         return product;
     }
 
