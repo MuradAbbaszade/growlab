@@ -14,7 +14,7 @@ public class PassportInformationRequest {
     private String name;
     private String surname;
     private String patronymic;
-    private Date birth_date;
+    private Date birthDate;
     private Gender gender;
-    private Long passport_number;
+    private Long passportNumber;
 }

@@ -19,8 +19,8 @@ public class PassportInformationRepository {
                 .addValue("name",passportInformation.getName())
                 .addValue("surname",passportInformation.getSurname())
                 .addValue("patronymic",passportInformation.getPatronymic())
-                .addValue("birth_date",passportInformation.getBirth_date())
-                .addValue("passport_number",passportInformation.getPassport_number())
+                .addValue("birth_date",passportInformation.getBirthDate())
+                .addValue("passport_number",passportInformation.getPassportNumber())
                 .addValue("gender",passportInformation.getGender().toString());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         creditorLeadJdbcTemplate.update("INSERT INTO passport_informations VALUES (:id,:name, :surname, :patronymic ,:birth_date, :gender, :passport_number)",namedParameters,keyHolder);
