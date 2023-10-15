@@ -15,8 +15,7 @@ public class LeadController {
     public String approve(@PathVariable Long id, @RequestParam("response-status") LeadResponseStatus leadResponseStatus,
                                   @RequestParam(value = "reject-reason",required = false) String rejectReason){
 
-        String message = leadService.changeActionStatus(id,leadResponseStatus,rejectReason);
-        return message;
+        return leadService.changeActionStatus(id,leadResponseStatus,rejectReason);
     }
 
 }
