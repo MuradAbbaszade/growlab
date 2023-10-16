@@ -1,5 +1,6 @@
 package az.growlab.creditor_lead.exception;
 
+import az.growlab.creditor_lead.exception.custom.CustomNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -19,5 +20,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         String bodyOfResponse = ex.getMessage();
         log.info("An error occured:{}", bodyOfResponse);
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+    @ExceptionHandler(value = {CustomNotFoundException.class})
+    protected ResponseEntity<Object> handleNotFoundException(Exception ex, WebRequest request) {
+        String bodyOfResponse = ex.getMessage();
+        log.info("An error occured:{}", bodyOfResponse);
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 }

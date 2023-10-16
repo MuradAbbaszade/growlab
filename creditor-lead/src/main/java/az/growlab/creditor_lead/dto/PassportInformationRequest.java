@@ -16,5 +16,5 @@ public class PassportInformationRequest {
     private String patronymic;
     private Date birthDate;
     private Gender gender;
-    private Long passportNumber;
+    private String passportNumber;
 }

@@ -19,11 +19,11 @@ public class LeadServiceImpl implements LeadService {
     private final UserRepository userRepository;
 
     @Override
-    public String changeActionStatus(Long id, LeadResponseStatus leadResponseStatus, String rejectReason) {
+    public String changeActionStatus(Long id, LeadResponseStatus leadResponseStatus, String rejectReason, ActionStatus actionStatus) {
         if(leadResponseStatus.equals(LeadResponseStatus.APPROVE)){
-            Long actionStatusId = actionStatusRepository.getStatusId(ActionStatus.IDENTITY_CHECK_APPROVED.toString());
+            Long actionStatusId = actionStatusRepository.getStatusId(actionStatus.toString());
             userRepository.changeUserActionStatus(id,actionStatusId);
-            return ActionStatus.IDENTITY_CHECK_APPROVED+" "+id;
+            return actionStatus+" "+id;
         }
         if(rejectReason==null) throw new UnsupportedOperationException("Reject reason is required for NEED_TO_IMPROVE and DECLINE status.");
         return id+" Rejected.Reason: "+rejectReason;

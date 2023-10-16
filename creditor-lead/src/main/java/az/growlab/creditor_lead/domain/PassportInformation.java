@@ -1,6 +1,7 @@
 package az.growlab.creditor_lead.domain;
 
 import az.growlab.creditor_lead.enums.Gender;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class PassportInformation {
 
     private Long id;
@@ -18,6 +20,6 @@ public class PassportInformation {
     private String patronymic;
     private Date birthDate;
     private Gender gender;
-    private Long passportNumber;
+    private String passportNumber;
 
 }
