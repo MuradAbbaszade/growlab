@@ -1,0 +1,9 @@
+package az.growlab.creditor_lead.enums;
+
+import lombok.Getter;
+
+@Getter
+public enum ActionStatus {
+    WAITING_FOR_IDENTITY_APPROVE, IDENTITY_CHECK_APPROVED, WAITING_FOR_INITIAL_APPROVE,
+    INITIAL_CHECK_APPROVED, WAITING_FOR_FINAL_APPROVE, FINAL_CHECK_APPROVED
+}
