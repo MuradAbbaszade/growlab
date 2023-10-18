@@ -6,5 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface LeadService {
-    String changeActionStatus(Long id, LeadResponseStatus leadResponseStatus,String rejectReason, ActionStatus actionStatus);
+    String changeActionStatus(Long userId, LeadResponseStatus leadResponseStatus, String rejectReason,
+                              ActionStatus actionStatus);
 }

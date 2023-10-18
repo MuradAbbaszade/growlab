@@ -1,20 +1,20 @@
-package az.growlab.creditor_lead.domain;
+package az.growlab.creditor_lead.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Loan {
-    private Long id;
+@Getter
+@Setter
+public class
+LoanRequest {
     private BigDecimal totalAmount;
     private BigDecimal preAmount;
     private BigDecimal interestRate;
     private Long userId;
+    private List<ProductRequest> productRequestList;
 }

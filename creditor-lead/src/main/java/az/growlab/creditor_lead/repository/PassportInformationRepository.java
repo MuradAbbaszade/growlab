@@ -14,16 +14,17 @@ import org.springframework.stereotype.Repository;
 public class PassportInformationRepository {
 
     private final NamedParameterJdbcTemplate creditorLeadJdbcTemplate;
+
     public Long save(PassportInformation passportInformation) {
-        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id",0)
-                .addValue("name",passportInformation.getName())
-                .addValue("surname",passportInformation.getSurname())
-                .addValue("patronymic",passportInformation.getPatronymic())
-                .addValue("birth_date",passportInformation.getBirthDate())
-                .addValue("passport_number",passportInformation.getPassportNumber())
-                .addValue("gender",passportInformation.getGender().toString());
+        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", 0)
+                .addValue("name", passportInformation.getName())
+                .addValue("surname", passportInformation.getSurname())
+                .addValue("patronymic", passportInformation.getPatronymic())
+                .addValue("birth_date", passportInformation.getBirthDate())
+                .addValue("passport_number", passportInformation.getPassportNumber())
+                .addValue("gender", passportInformation.getGender().toString());
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        creditorLeadJdbcTemplate.update("INSERT INTO passport_informations VALUES (:id,:name, :surname, :patronymic ,:birth_date, :gender, :passport_number)",namedParameters,keyHolder);
+        creditorLeadJdbcTemplate.update("INSERT INTO passport_informations VALUES (:id,:name, :surname, :patronymic ,:birth_date, :gender, :passport_number)", namedParameters, keyHolder);
         return keyHolder.getKey().longValue();
     }
 }

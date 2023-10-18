@@ -1,10 +1,6 @@
 package az.growlab.creditor_lead.domain;
 
-import az.growlab.creditor_lead.enums.ActionStatus;
-import az.growlab.creditor_lead.enums.FinalStatus;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

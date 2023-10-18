@@ -12,24 +12,24 @@ import org.springframework.stereotype.Repository;
 public class ActionStatusRepository {
     private final NamedParameterJdbcTemplate creditorLeadJdbcTemplate;
 
-    public Long getStatusId(String status){
+    public Long getStatusId(String status) {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("status", status);
         Long id = creditorLeadJdbcTemplate.queryForObject(
-                "SELECT id FROM action_status WHERE status = :status", namedParameters,Long.class);
+                "SELECT id FROM action_status WHERE status = :status", namedParameters, Long.class);
         return id;
     }
 
-    public ActionStatus findById(Long id){
+    public ActionStatus findById(Long id) {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", id);
         ActionStatus actionStatus = creditorLeadJdbcTemplate.queryForObject(
-                "SELECT * FROM action_status WHERE id = :id", namedParameters, ActionStatus.class);
+                "SELECT status FROM action_status WHERE id = :id", namedParameters, ActionStatus.class);
         return actionStatus;
     }
 
-    public ActionStatus getUserActionStatus(Long userId){
+    public ActionStatus getUserActionStatus(Long userId) {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("user_id", userId);
         Long actionStatusId = creditorLeadJdbcTemplate.queryForObject(
-                "SELECT action_status_id FROM users WHERE user_id = :user_id", namedParameters,Long.class);
+                "SELECT action_status_id FROM users WHERE id = :user_id", namedParameters, Long.class);
         ActionStatus actionStatus = findById(actionStatusId);
         return actionStatus;
     }

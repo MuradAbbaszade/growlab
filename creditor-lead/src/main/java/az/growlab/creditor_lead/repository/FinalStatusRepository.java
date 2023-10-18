@@ -11,10 +11,10 @@ import org.springframework.stereotype.Repository;
 public class FinalStatusRepository {
     private final NamedParameterJdbcTemplate creditorLeadJdbcTemplate;
 
-    public Long getStatusId(String status){
+    public Long getStatusId(String status) {
         SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("status", status);
         Long id = creditorLeadJdbcTemplate.queryForObject(
-                "SELECT id FROM final_status WHERE status = :status", namedParameters,Long.class);
+                "SELECT id FROM final_status WHERE status = :status", namedParameters, Long.class);
         return id;
     }
 }

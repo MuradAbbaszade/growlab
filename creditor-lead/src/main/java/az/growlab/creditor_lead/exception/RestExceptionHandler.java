@@ -21,6 +21,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         log.info("An error occured:{}", bodyOfResponse);
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
+
     @ExceptionHandler(value = {CustomNotFoundException.class})
     protected ResponseEntity<Object> handleNotFoundException(Exception ex, WebRequest request) {
         String bodyOfResponse = ex.getMessage();

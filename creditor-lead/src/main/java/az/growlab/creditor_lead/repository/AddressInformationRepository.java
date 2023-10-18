@@ -15,13 +15,13 @@ public class AddressInformationRepository {
     private final NamedParameterJdbcTemplate creditorLeadJdbcTemplate;
 
     public Long save(AddressInformation addressInformation) {
-        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id",0)
-                .addValue("country",addressInformation.getCountry())
-                .addValue("city",addressInformation.getCity())
-                .addValue("street",addressInformation.getStreet())
-                .addValue("postal_code",addressInformation.getPostalCode());
+        SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("id", 0)
+                .addValue("country", addressInformation.getCountry())
+                .addValue("city", addressInformation.getCity())
+                .addValue("street", addressInformation.getStreet())
+                .addValue("postal_code", addressInformation.getPostalCode());
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        creditorLeadJdbcTemplate.update("INSERT INTO address_informations VALUES (:id,:country, :city, :street ,:postal_code)",namedParameters,keyHolder);
+        creditorLeadJdbcTemplate.update("INSERT INTO address_informations VALUES (:id,:country, :city, :street ,:postal_code)", namedParameters, keyHolder);
         return keyHolder.getKey().longValue();
     }
 }
