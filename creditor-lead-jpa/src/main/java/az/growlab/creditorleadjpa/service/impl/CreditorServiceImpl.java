@@ -33,7 +33,7 @@ public class CreditorServiceImpl implements CreditorService {
         PassportInformation passportInformation = modelMapper.map(passportInformationRequest,PassportInformation.class);
         passportInformationRepository.save(passportInformation);
         User user = new User(0L,null,passportInformation,
-                ActionStatus.WAITING_FOR_IDENTITY_APPROVE, FinalStatus.IN_PROGRESS);
+                ActionStatus.WAITING_FOR_IDENTITY_APPROVE, FinalStatus.IN_PROGRESS,null);
         userRepository.save(user);
     }
 

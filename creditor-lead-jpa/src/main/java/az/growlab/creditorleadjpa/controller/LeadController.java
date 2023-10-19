@@ -7,13 +7,11 @@ import az.growlab.creditorleadjpa.dto.PersonalInformationRequest;
 import az.growlab.creditorleadjpa.enums.ActionStatus;
 import az.growlab.creditorleadjpa.service.LeadService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/lead")
+@RestController
 public class LeadController {
     private final LeadService leadService;
     @PostMapping("/identity-status/{id}")

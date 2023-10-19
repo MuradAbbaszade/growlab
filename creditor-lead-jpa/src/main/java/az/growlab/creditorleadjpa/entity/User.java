@@ -23,9 +23,9 @@ public class User {
     private PersonalInformation personalInformation;
     @OneToOne
     private PassportInformation passportInformation;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private ActionStatus actionStatus;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private FinalStatus finalStatus;
     @OneToMany(mappedBy = "user")
     private List<Loan> loanList;
