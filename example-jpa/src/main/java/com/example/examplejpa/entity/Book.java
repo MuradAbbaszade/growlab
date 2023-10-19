@@ -1,24 +1,19 @@
-package az.growlab.creditorleadjpa.entity;
+package com.example.examplejpa.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
-@Getter
 @NoArgsConstructor
-@Setter
-public class Product {
+@Getter
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private BigDecimal price;
-
     @ManyToOne
-    @JoinColumn(name="loan_id", nullable=false)
-    private Loan loan;
+    @JoinColumn(name="author_id", nullable=false)
+    private Author author;
 }

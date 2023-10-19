@@ -20,8 +20,9 @@ public class Loan {
     private BigDecimal preAmount;
     private BigDecimal interestRate;
     @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
     private User user;
-    @OneToMany
+    @OneToMany(mappedBy = "loan")
     List<Product> productList;
 
 }

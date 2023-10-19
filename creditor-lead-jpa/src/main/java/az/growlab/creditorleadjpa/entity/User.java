@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,5 +27,7 @@ public class User {
     private ActionStatus actionStatus;
     @Enumerated
     private FinalStatus finalStatus;
+    @OneToMany(mappedBy = "user")
+    private List<Loan> loanList;
 
 }
