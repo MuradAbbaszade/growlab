@@ -16,9 +16,9 @@ public class LeadServiceImpl implements LeadService {
     private final UserRepository userRepository;
     @Override
     public void changeIdentityStatus(LeadRequest leadRequest, ActionStatus actionStatus) {
-        if(leadRequest.getRejectReason().equals(LeadResponseStatus.NEED_TO_IMPROVE)||
-        leadRequest.getRejectReason().equals(LeadResponseStatus.DECLINE)){
-            throw new UnsupportedOperationException(leadRequest.getLeadResponseStatus().toString());
+        if(leadRequest.getLeadResponseStatus().equals(LeadResponseStatus.NEED_TO_IMPROVE)||
+        leadRequest.getLeadResponseStatus().equals(LeadResponseStatus.DECLINE)){
+            throw new UnsupportedOperationException(leadRequest.getLeadResponseStatus().toString()+" "+leadRequest.getUserId()+" "+leadRequest.getRejectReason());
         }
         User user = userRepository.findById(leadRequest.getUserId())
                 .orElseThrow(() -> new CustomNotFoundException("User not found"));

@@ -3,12 +3,13 @@ package az.growlab.creditorleadjpa.dto;
 import az.growlab.creditorleadjpa.enums.Gender;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
 @NoArgsConstructor
+@Setter
 public class PassportInformationRequest {
     private String name;
     private String surname;

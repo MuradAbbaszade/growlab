@@ -2,19 +2,15 @@ package az.growlab.creditorleadjpa.entity;
 
 import az.growlab.creditorleadjpa.enums.ActionStatus;
 import az.growlab.creditorleadjpa.enums.FinalStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

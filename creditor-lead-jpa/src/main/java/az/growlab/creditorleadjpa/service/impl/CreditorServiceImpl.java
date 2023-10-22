@@ -27,11 +27,15 @@ public class CreditorServiceImpl implements CreditorService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final LoanRepository loanRepository;
+    private final AddressInformationRepository addressInformationRepository;
+    private final ContactInformationRepository contactInformationRepository;
+    private final PersonalInformationRepository personalInformationRepository;
     @Override
     @Transactional
     public void identityApprove(PassportInformationRequest passportInformationRequest) {
         PassportInformation passportInformation = modelMapper.map(passportInformationRequest,PassportInformation.class);
         passportInformationRepository.save(passportInformation);
+        System.out.println(passportInformation.getName());
         User user = new User(0L,null,passportInformation,
                 ActionStatus.WAITING_FOR_IDENTITY_APPROVE, FinalStatus.IN_PROGRESS,null);
         userRepository.save(user);
@@ -47,7 +51,11 @@ public class CreditorServiceImpl implements CreditorService {
                 ContactInformation.class);
         AddressInformation addressInformation = modelMapper.map(personalInformationRequest.getAddressInformationRequest(),
                 AddressInformation.class);
-        user.setPersonalInformation(new PersonalInformation(0L,contactInformation,addressInformation));
+        PersonalInformation personalInformation = new PersonalInformation(0L,contactInformation,addressInformation,user);
+        addressInformationRepository.save(addressInformation);
+        contactInformationRepository.save(contactInformation);
+        personalInformationRepository.save(personalInformation);
+        user.setPersonalInformation(personalInformation);
         user.setActionStatus(ActionStatus.WAITING_FOR_INITIAL_APPROVE);
         userRepository.save(user);
 

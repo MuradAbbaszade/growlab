@@ -1,12 +1,15 @@
 package az.growlab.creditorleadjpa.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Getter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class AddressInformation {
     @Id
