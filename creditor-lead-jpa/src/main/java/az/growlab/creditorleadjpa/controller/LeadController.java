@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class LeadController {
     private final LeadService leadService;
-    @PostMapping("/identity-status/{id}")
+    @PostMapping("/identity-status")
     public void checkIdentity(@RequestBody LeadRequest leadRequest){
         leadService.changeIdentityStatus(leadRequest, ActionStatus.IDENTITY_CHECK_APPROVED);
     }
-    @PostMapping("/initial-status/{id}")
+    @PostMapping("/initial-status")
     public void initialApprove(@RequestBody LeadRequest leadRequest){
         leadService.changeIdentityStatus(leadRequest, ActionStatus.INITIAL_CHECK_APPROVED);
     }
-    @PostMapping("/final-status/{id}")
+    @PostMapping("/final-status")
     public void finalApprove(@RequestBody LeadRequest leadRequest){
         leadService.changeIdentityStatus(leadRequest, ActionStatus.FINAL_CHECK_APPROVED);
     }
