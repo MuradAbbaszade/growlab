@@ -19,6 +19,4 @@ public class PersonalInformation {
     private ContactInformation contactInformation;
     @OneToOne
     private AddressInformation addressInformation;
-    @OneToOne
-    private User user;
 }

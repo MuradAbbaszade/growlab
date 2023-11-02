@@ -11,7 +11,6 @@ import az.growlab.creditorleadjpa.exception.CustomNotFoundException;
 import az.growlab.creditorleadjpa.repository.*;
 import az.growlab.creditorleadjpa.service.CreditorService;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.control.MappingControl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,12 +29,12 @@ public class CreditorServiceImpl implements CreditorService {
     private final AddressInformationRepository addressInformationRepository;
     private final ContactInformationRepository contactInformationRepository;
     private final PersonalInformationRepository personalInformationRepository;
+    private final ProductRepository productRepository;
     @Override
     @Transactional
     public void identityApprove(PassportInformationRequest passportInformationRequest) {
         PassportInformation passportInformation = modelMapper.map(passportInformationRequest,PassportInformation.class);
         passportInformationRepository.save(passportInformation);
-        System.out.println(passportInformation.getName());
         User user = new User(0L,null,passportInformation,
                 ActionStatus.WAITING_FOR_IDENTITY_APPROVE, FinalStatus.IN_PROGRESS,null);
         userRepository.save(user);
@@ -51,11 +50,11 @@ public class CreditorServiceImpl implements CreditorService {
                 ContactInformation.class);
         AddressInformation addressInformation = modelMapper.map(personalInformationRequest.getAddressInformationRequest(),
                 AddressInformation.class);
-        PersonalInformation personalInformation = new PersonalInformation(0L,contactInformation,addressInformation,user);
+        PersonalInformation personalInformation = new PersonalInformation(0L,contactInformation,addressInformation);
         addressInformationRepository.save(addressInformation);
         contactInformationRepository.save(contactInformation);
-        personalInformationRepository.save(personalInformation);
-        user.setPersonalInformation(personalInformation);
+        PersonalInformation savedPersonalInformation = personalInformationRepository.save(personalInformation);
+        user.setPersonalInformation(savedPersonalInformation);
         user.setActionStatus(ActionStatus.WAITING_FOR_INITIAL_APPROVE);
         userRepository.save(user);
 
@@ -77,12 +76,15 @@ public class CreditorServiceImpl implements CreditorService {
         List<Product> productList = new ArrayList<>();
         for(ProductRequest productRequest : productRequestList) {
             Product product = modelMapper.map(productRequest, Product.class);
-            product.setLoan(loan);
             productList.add(product);
         }
         loan.setUser(user);
         loan.setProductList(productList);
         user.setActionStatus(ActionStatus.WAITING_FOR_FINAL_APPROVE);
-        loanRepository.save(loan);
+        Loan savedLoan = loanRepository.save(loan);
+        for(Product product:productList){
+            product.setLoan(savedLoan);
+            productRepository.save(product);
+        }
     }
 }
