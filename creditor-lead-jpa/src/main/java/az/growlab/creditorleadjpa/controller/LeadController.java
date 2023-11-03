@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class LeadController {
     private final LeadService leadService;
+
     @PostMapping("/identity-status")
     public void checkIdentity(@RequestBody LeadRequest leadRequest){
         leadService.changeIdentityStatus(leadRequest, ActionStatus.IDENTITY_CHECK_APPROVED);

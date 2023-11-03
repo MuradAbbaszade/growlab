@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/creditor")
 public class CreditorController {
     private final CreditorService creditorService;
+
     @PostMapping("/check-identity")
     public void checkIdentity(@RequestBody PassportInformationRequest passportInformationRequest){
         creditorService.identityApprove(passportInformationRequest);

@@ -1,4 +1,5 @@
 package az.growlab.creditorleadjpa.exception;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -25,5 +26,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         String bodyOfResponse = ex.getMessage();
         log.info("An error occured:{}", bodyOfResponse);
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+    @ExceptionHandler(value = {ExpiredJwtException.class})
+    protected ResponseEntity<Object> handleExpiredJwtException(Exception ex, WebRequest request) {
+        String bodyOfResponse = ex.getMessage();
+        log.info("An error occured:{}", bodyOfResponse);
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    protected ResponseEntity<Object> handleIllegalArgumentException(Exception ex, WebRequest request) {
+        String bodyOfResponse = ex.getMessage();
+        log.info("An error occured:{}", bodyOfResponse);
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 }

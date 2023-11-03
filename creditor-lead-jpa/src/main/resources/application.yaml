@@ -10,3 +10,13 @@ spring:
     generate-ddl: false
     hibernate:
       ddl-auto: update
+jwt:
+  token:
+    validity: 60000
+    prefix: Bearer
+  signing:
+    key: asdsadsadsadsadasdasdsadsadsadasdasdasdsadasdasdasdsadadsadsadsadasdasdasd
+  authorities:
+    key: roles
+  header:
+    string: Authorization
